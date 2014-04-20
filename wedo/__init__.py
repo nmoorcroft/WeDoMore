@@ -59,7 +59,6 @@ class WeDo(object):
             if not devices:
                 raise OSError("Could not find a connected WeDo device")
             self.dev = devices[0]
-            self.dev.set_configuration()
         self.init_device()
         self.valMotorA = 0
         self.valMotorB = 0
@@ -77,6 +76,7 @@ class WeDo(object):
                 except usb.core.USBError as e:
                     logger.error(
                         "Could not detatch kernel driver: %s" % (str(e)))
+            self.dev.set_configuration()
             self.endpoint = self.dev[0][(0, 0)][0]
         except usb.core.USBError as e:
             logger.error("Could not talk to WeDo device: %s" % (str(e)))
